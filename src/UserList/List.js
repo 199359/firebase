@@ -1,9 +1,18 @@
 import React from 'react'
+import User from './User'
 
-const Loaded = (props) => (
+const List = (props) => (
     <div>
-        Loaded
+        {
+            props.users.map(user => (
+                <User
+                    key={user.key}
+                    user={user}
+                />
+            ))
+        }
     </div>
 )
 
-export default Loaded
+
+export default List

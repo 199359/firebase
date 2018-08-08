@@ -3,10 +3,12 @@ import Default from './Default'
 import Loading from './Loading'
 import List from './List'
 import mapObjectToArray from '../utils'
+import Forms from './Forms'
 
 
 class UserList extends React.Component {
     state = {
+        newUserName: '',
         users: null,
         isLoadingUsers: false
     }
@@ -39,6 +41,28 @@ class UserList extends React.Component {
             })
     }
 
+    newUserChangeHandler = (event) => {
+        this.setState({
+            newUserName: event.target.value
+        })
+    }
+
+    addNewUser = () => {
+        // const newUserState = this.state.users.push(this.state.newUserName)
+        // console.log(this.state.users)
+        const request = {
+            method: 'POST',
+            body: JSON.stringify({name: this.state.newUserName})
+        }
+
+        fetch('https://test-4b9cd.firebaseio.com/JFDDL5-users.json', request)
+        .then(response=>{this.loadUsers()
+        this.setState({
+            newUserName: ""
+        })
+        })
+    }
+
     render() {
         return (
             <div>
@@ -46,7 +70,16 @@ class UserList extends React.Component {
                     <Loading />
                     :
                     this.state.users ?
-                        <List />
+                    <div>
+                        <Forms 
+                        newUserName={this.state.newUserName}
+                        newUserChangeHandler={this.newUserChangeHandler}
+                        addNewUser={this.addNewUser}
+                        />
+                        <List
+                            users={this.state.users}
+                        />
+                        </div>
                         :
                         <Default
                             label={'Click'}
