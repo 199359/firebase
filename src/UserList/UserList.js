@@ -14,7 +14,6 @@ class UserList extends React.Component {
     }
 
     loadUsers = () => {
-
         this.setState({
             isLoadingUsers: true
         })
@@ -26,18 +25,9 @@ class UserList extends React.Component {
                     users: Object.entries(data),
                     isLoadingUsers: false
                 })
-                console.log(data)
-                // const newArr = this.state.users.map(el => {
-                //     return {
-                //         ...el[1], //lepiej najpierw dac elementy a pozniej id
-                //         id: el[0] // bo jakby bylo cos co se nazwya id to by sie napdpisalo
-                //     }
-                // }
-                // )
                 this.setState({
                     users: mapObjectToArray(data)
                 })
-                console.log(this.state)
             })
     }
 
@@ -48,19 +38,30 @@ class UserList extends React.Component {
     }
 
     addNewUser = () => {
-        // const newUserState = this.state.users.push(this.state.newUserName)
-        // console.log(this.state.users)
         const request = {
             method: 'POST',
-            body: JSON.stringify({name: this.state.newUserName})
+            body: JSON.stringify({ name: this.state.newUserName })
         }
 
         fetch('https://test-4b9cd.firebaseio.com/JFDDL5-users.json', request)
-        .then(response=>{this.loadUsers()
-        this.setState({
-            newUserName: ""
-        })
-        })
+            .then(response => {
+                this.loadUsers()
+                this.setState({
+                    newUserName: ""
+                })
+            })
+    }
+
+    onEditUserHandler = (key, newName) => {
+        console.log(key, newName)
+
+        const request = {
+            method: 'PATCH',
+            body: JSON.stringify({ name: newName })
+        }
+
+        fetch(`https://test-4b9cd.firebaseio.com/JFDDL5-users/${key}.json`, request)
+            .then(() => {this.loadUsers()})
     }
 
     render() {
@@ -70,21 +71,23 @@ class UserList extends React.Component {
                     <Loading />
                     :
                     this.state.users ?
-                    <div>
-                        <Forms 
-                        newUserName={this.state.newUserName}
-                        newUserChangeHandler={this.newUserChangeHandler}
-                        addNewUser={this.addNewUser}
-                        />
-                        <List
-                            users={this.state.users}
-                        />
+                        <div>
+                            <Forms
+                                newUserName={this.state.newUserName}
+                                newUserChangeHandler={this.newUserChangeHandler}
+                                addNewUser={this.addNewUser}
+                            />
+                            <List
+                                users={this.state.users}
+                                onEditUserHandler={this.onEditUserHandler}
+                            />
                         </div>
                         :
                         <Default
                             label={'Click'}
                             clickHandler={this.loadUsers}
-                        />}
+                        />
+                }
             </div>
         )
     }

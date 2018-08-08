@@ -8,6 +8,7 @@ const List = (props) => (
                 <User
                     key={user.key}
                     user={user}
+                    onEditUserHandler={props.onEditUserHandler}
                 />
             ))
         }
