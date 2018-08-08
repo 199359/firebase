@@ -2,6 +2,7 @@ import React from 'react'
 import Default from './Default'
 import Loading from './Loading'
 import List from './List'
+import mapObjectToArray from '../utils'
 
 
 class UserList extends React.Component {
@@ -24,15 +25,15 @@ class UserList extends React.Component {
                     isLoadingUsers: false
                 })
                 console.log(data)
-                const newArr = this.state.users.map(el => {
-                    return {
-                        ...el[1], //lepiej najpierw dac elementy a pozniej id
-                        id: el[0] // bo jakby bylo cos co se nazwya id to by sie napdpisalo
-                    }
-                }
-                )
+                // const newArr = this.state.users.map(el => {
+                //     return {
+                //         ...el[1], //lepiej najpierw dac elementy a pozniej id
+                //         id: el[0] // bo jakby bylo cos co se nazwya id to by sie napdpisalo
+                //     }
+                // }
+                // )
                 this.setState({
-                    users: newArr
+                    users: mapObjectToArray(data)
                 })
                 console.log(this.state)
             })
