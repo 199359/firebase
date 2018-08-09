@@ -8,7 +8,7 @@ class User extends React.Component {
 
     editToggle = () => {
         this.setState({
-            isEdited: !this.state.isEdit,
+            isEdited: !this.state.isEdited,
             userName: this.props.user.name
         })
     }
@@ -34,8 +34,10 @@ class User extends React.Component {
                     <button onClick={() => {
                         this.props.onEditUserHandler(
                             this.props.user.key,
-                            this.state.userName
+                            this.state.userName,
                         )
+                        // .then(()=>this.editToggle())
+                        this.editToggle()
                     }}>
                         Save
                     </button>
