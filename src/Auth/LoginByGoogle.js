@@ -5,7 +5,7 @@ import React from 'react'
   const LoginByGoogle = (props) => (
     <div>
         <button
-            onClick={props.onLogInClickHandler}
+            onClick={props.onLogInByEmailAndPasswordClickHandler}
         >
             Login by Google!
         </button>

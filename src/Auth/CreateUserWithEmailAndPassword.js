@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LogInByEmailAndPassword = (props) => (
+const CreateUserWithEmailAndPassword = (props) => (
     <div>
         <div>
             <div>
@@ -10,13 +10,13 @@ const LogInByEmailAndPassword = (props) => (
                 <input type='password' onChange={props.onPasswordChangedHandler} value={props.passwordValue} />
             </div>
             <div>
-                <button onClick={props.onLogInClickHandler}>Login!</button>
+                <button onClick={props.onSignUpClickHandler}>Zarejestruj!</button>
             </div>
         </div>
     </div>
 )
 
-export default LogInByEmailAndPassword
+export default CreateUserWithEmailAndPassword
 
 
 
