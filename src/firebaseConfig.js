@@ -13,6 +13,7 @@ import firebase from 'firebase'
 
   firebase.initializeApp(config)
 
-  const database = firebase.database()
-
-  export default database
+   
+  export const auth = firebase.auth()
+  export const database = firebase.database()
+  export const googleProvider = new firebase.auth.GoogleAuthProvider()
